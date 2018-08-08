@@ -1,7 +1,9 @@
-cmake_minimum_required(VERSION 3.2)
+cmake_minimum_required(VERSION 3.8.2)
+enable_testing()
 
 project(palver VERSION 0.1 LANGUAGES CXX)
 
-add_compile_options(-Wall -Wextra -Wpedantic)
+set(custom_compile_options -Wall -Wextra -Wpedantic)
 
+add_subdirectory(third_party)
 add_subdirectory(src)
