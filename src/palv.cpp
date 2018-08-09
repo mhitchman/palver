@@ -1,7 +1,9 @@
 #include <filesystem>
 #include <iostream>
 #include <string>
-#include <exception>
+#include <stdexcept>
+
+#include "palv.h"
 
 namespace palverlib
 {
@@ -10,16 +12,20 @@ namespace palverlib
 	// Returns the path to the existing config directory ~/.palver
 
 	const std::string configDirName = ".palver";
-	if (auto homeDir = std::getenv("HOME"); homeDir)
-	{
-	    std::filesystem::path homeDirPath = std::filesystem::path(homeDir);
-	    return homeDirPath.append(configDirName);
-	}
-	else
+	auto homeDir = std::getenv("HOME");
+	if (!homeDir)
 	{
 	    throw std::runtime_error("HOME environment variable not set");
 	}
+
+	std::filesystem::path homeDirPath = std::filesystem::path(homeDir);
+	if (!std::filesystem::exists(homeDirPath))
+	{
+	    throw file_not_found_error(homeDirPath);
+	}
+	return homeDirPath.append(configDirName);
     }
+
 
     std::filesystem::path findTemplateDir(std::filesystem::path configDir)
     {
@@ -28,8 +34,7 @@ namespace palverlib
 
 	if (!std::filesystem::exists(configDir))
 	{
-	    std::string error = configDir.string() + " doesn't exist";
-	    throw std::invalid_argument(error);
+	    throw file_not_found_error(configDir);
 	}
 
 	return configDir;
@@ -37,7 +42,11 @@ namespace palverlib
 
     void copyTemplateProjectToCurrentDir(const std::filesystem::path& templateDir)
     {
-	std::filesystem::path destination = std::filesystem::current_path() / templateDir.stem().string(); // append won't work if second argument is path
-	std::filesystem::copy(templateDir, destination, std::filesystem::copy_options::recursive);
+	// append won't work if second argument is filesystem::path
+	std::filesystem::path destination = std::filesystem::current_path() /
+	    templateDir.stem().string();
+
+	std::filesystem::copy(templateDir, destination,
+			      std::filesystem::copy_options::recursive);
     }
 }
