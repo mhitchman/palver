@@ -1,13 +1,15 @@
 #include "palv.h"
 #include <iostream>
+#include <string>
 
-int main()
+int main(int argc, char* argv[])
 {
+    std::string projectName = palverlib::parseCommandLineArg(argc, argv);
     try
     {
 	auto configDir = palverlib::findConfigDir();
 	auto templateDir = palverlib::findTemplateDir(configDir);
-	palverlib::copyTemplateProjectToCurrentDir(templateDir);
+	palverlib::copyTemplateProjectToCWD(templateDir, projectName);
     }
     catch(palverlib::file_not_found_error& e)
     {

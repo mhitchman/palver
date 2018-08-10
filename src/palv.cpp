@@ -1,12 +1,22 @@
 #include <filesystem>
 #include <iostream>
 #include <string>
-#include <stdexcept>
 
 #include "palv.h"
 
 namespace palverlib
 {
+
+    std::string parseCommandLineArg(int argc, char* argv[])
+    {
+	if (argc < 2)		// less than 2 means no argument was supplied
+	{
+	    return std::string();
+	}
+
+	return std::string(argv[1]);
+    }
+
     std::filesystem::path findConfigDir()
     {
 	// Returns the path to the existing config directory ~/.palver
@@ -40,11 +50,22 @@ namespace palverlib
 	return configDir;
     }
 
-    void copyTemplateProjectToCurrentDir(const std::filesystem::path& templateDir)
+    void copyTemplateProjectToCWD(const std::filesystem::path& templateDir, const std::string& projectName)
     {
-	// append won't work if second argument is filesystem::path
-	std::filesystem::path destination = std::filesystem::current_path() /
-	    templateDir.stem().string();
+	std::filesystem::path destination;
+
+	// If project name isn't provided just use the template name
+	if (projectName.empty())
+	{
+	    // append won't work if second argument is filesystem::path
+	    destination = std::filesystem::current_path() /
+		templateDir.stem().string();
+	}
+	else
+	{
+	    destination = std::filesystem::current_path() /
+		projectName;
+	}
 
 	std::filesystem::copy(templateDir, destination,
 			      std::filesystem::copy_options::recursive);
