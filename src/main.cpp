@@ -7,7 +7,8 @@ int main(int argc, char* argv[])
     std::string projectName = palverlib::parseCommandLineArg(argc, argv);
     try
     {
-	auto configDir = palverlib::findConfigDir();
+	auto homeDir = palverlib::findHomeDir();
+	auto configDir = palverlib::findConfigDir(homeDir);
 	auto templateDir = palverlib::findTemplateDir(configDir);
 	palverlib::copyTemplateProjectToCWD(templateDir, projectName);
     }

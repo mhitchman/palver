@@ -15,7 +15,8 @@ namespace palverlib
     };
 
     std::string parseCommandLineArg(int argc, char* argv[]);
-    std::filesystem::path findConfigDir();
-    std::filesystem::path findTemplateDir(std::filesystem::path configDir);
+    std::filesystem::path findHomeDir();
+    std::filesystem::path findConfigDir(std::filesystem::path homeDir);
+    std::filesystem::path findTemplateDir(std::filesystem::path configDir, std::string templateName);
     void copyTemplateProjectToCWD(const std::filesystem::path& templateDir, const std::string& projectName);
 }

@@ -17,34 +17,54 @@ namespace palverlib
 	return std::string(argv[1]);
     }
 
-    std::filesystem::path findConfigDir()
+    std::filesystem::path findHomeDir()
     {
-	// Returns the path to the existing config directory ~/.palver
-
-	const std::string configDirName = ".palver";
 	auto homeDir = std::getenv("HOME");
 	if (!homeDir)
 	{
 	    throw std::runtime_error("HOME environment variable not set");
 	}
 
-	std::filesystem::path homeDirPath = std::filesystem::path(homeDir);
+	std::filesystem::path homeDirPath(homeDir);
 	if (!std::filesystem::exists(homeDirPath))
 	{
 	    throw file_not_found_error(homeDirPath);
 	}
-	return homeDirPath.append(configDirName);
+
+	return homeDirPath;
+    }
+
+    std::filesystem::path findConfigDir(std::filesystem::path homeDir)
+    {
+	// Returns the path to the existing config directory ~/.palver
+	const std::string configDirName = ".palver";
+
+	auto configDirPath = homeDir.append(configDirName);
+
+	if (!std::filesystem::exists(configDirPath))
+	{
+	    throw file_not_found_error(configDirPath);
+	}
+
+	return configDirPath;
     }
 
 
-    std::filesystem::path findTemplateDir(std::filesystem::path configDir)
+    std::filesystem::path findTemplateDir(std::filesystem::path configDir, std::string templateName)
     {
-	const std::string templateDirName = "app";
-	configDir.append(templateDirName);
+	if (templateName.empty())
+	{
+	    throw std::invalid_argument("No template name provided");
+	}
+	configDir.append(templateName);
 
 	if (!std::filesystem::exists(configDir))
 	{
 	    throw file_not_found_error(configDir);
+	}
+	if (!std::filesystem::is_directory(configDir))
+	{
+	    throw std::invalid_argument(templateName + " does not specify a template directory");
 	}
 
 	return configDir;
