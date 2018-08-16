@@ -20,7 +20,7 @@ set_property(TARGET palv PROPERTY CXX_EXTENSIONS OFF)
 
 target_compile_options(palv PRIVATE ${custom_compile_options})
 
+target_include_directories(palv PRIVATE ${THIRD_PARTY_INCLUDES})
+
 target_link_libraries(palv
 	palvlib)
-
-

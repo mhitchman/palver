@@ -1,0 +1,2 @@
+* TODO Setup CMake script to download clara.hpp
+* TODO Remove the testConf folder from the build folder as part of the make clean step
