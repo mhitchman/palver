@@ -1,7 +1,7 @@
 #include <catch2/catch.hpp>
 #include <filesystem>
 #include <iostream>
-#include "../palv.h"
+#include <palv.h>
 
 TEST_CASE ( "Filesystem tests ")
 {

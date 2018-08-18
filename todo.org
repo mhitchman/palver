@@ -1,2 +1,10 @@
-* TODO Setup CMake script to download clara.hpp
-* TODO Remove the testConf folder from the build folder as part of the make clean step
+* DONE Setup CMake script to download clara.hpp
+* DONE Split palverlib into its own directory with separate include directory
+* DONE Setup make install
+* TODO Add a license
+* TODO Setup clang-tidy
+* TODO Write a README
+- [ ] Introduction
+- [ ] Cloning section
+- [ ] build section
+- [ ] Usage

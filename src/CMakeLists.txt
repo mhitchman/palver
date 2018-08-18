@@ -1,15 +1,5 @@
-add_subdirectory(tests)
-
-# PALVLIB
-add_library(palvlib STATIC
-	palv.cpp)
-
-target_compile_features(palvlib PUBLIC cxx_std_17)
-target_compile_options(palvlib PRIVATE ${custom_compile_options})
-target_link_libraries(palvlib PUBLIC
-	stdc++fs)
-target_include_directories(palvlib PUBLIC
-		$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/>)
+# PALVERLIB
+add_subdirectory(palverlib)
 
 # PALV
 add_executable(palv
@@ -20,7 +10,13 @@ set_property(TARGET palv PROPERTY CXX_EXTENSIONS OFF)
 
 target_compile_options(palv PRIVATE ${custom_compile_options})
 
-target_include_directories(palv PRIVATE ${THIRD_PARTY_INCLUDES})
+target_link_libraries(palv PRIVATE
+	palvlib
+	Clara::Clara)
 
-target_link_libraries(palv
-	palvlib)
+install(TARGETS palv DESTINATION bin)
+
+# TESTS
+if (ENABLE_TESTS)
+   add_subdirectory(tests)
+endif()
