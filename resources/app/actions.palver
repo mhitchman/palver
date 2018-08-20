@@ -1,0 +1,3 @@
+#!/bin/bash
+
+echo -e "project($1 LANGUAGES CXX)\n$(cat CMakeLists.txt)" > CMakeLists.txt
