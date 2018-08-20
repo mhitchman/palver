@@ -17,5 +17,6 @@ namespace palverlib
     std::filesystem::path findHomeDir();
     std::filesystem::path findConfigDir(std::filesystem::path homeDir);
     std::filesystem::path findTemplateDir(std::filesystem::path configDir, const std::string& templateName);
-    void copyTemplateProjectToCWD(const std::filesystem::path& templateDir, const std::string& projectName);
+    std::filesystem::path copyTemplateProjectToCWD(const std::filesystem::path& templateDir, const std::string& projectName);
+    bool runTemplateActions(const std::filesystem::path& destination, const std::string& projectName);
 }

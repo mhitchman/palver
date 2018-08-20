@@ -1,3 +1,4 @@
+#include <cstdlib>
 #include <filesystem>
 #include <iostream>
 #include <palv.h>
@@ -59,7 +60,7 @@ namespace palverlib
 	return configDir;
     }
 
-    void copyTemplateProjectToCWD(const std::filesystem::path& templateDir, const std::string& projectName)
+    std::filesystem::path copyTemplateProjectToCWD(const std::filesystem::path& templateDir, const std::string& projectName)
     {
 	std::filesystem::path destination;
 
@@ -78,5 +79,34 @@ namespace palverlib
 
 	std::filesystem::copy(templateDir, destination,
 			      std::filesystem::copy_options::recursive);
+
+	return destination;
+    }
+
+    bool runTemplateActions(const std::filesystem::path& destination, const std::string& projectName)
+    {
+	// Run the created template's action.palver shell script if it exists
+	// and returns true if successful (false if unsuccessful)
+
+	namespace fs = std::filesystem;
+	const std::string actionScriptName = "actions.palver";
+
+	auto scriptLocation = destination / actionScriptName;
+	if (!fs::exists(scriptLocation))
+	{
+	    return true;
+	}
+
+	if (auto scriptPermissions = fs::status(scriptLocation).permissions();
+	    (scriptPermissions & fs::perms::owner_exec) == fs::perms::none)
+	{
+	    std::cerr << scriptLocation.string() << " not executable\n";
+	    return false;
+	}
+
+	std::string command = "cd " + destination.string() + " && " +
+	    "./" + actionScriptName + ' ' + projectName;
+
+	return std::system(command.c_str()) == 0;
     }
 } // namespace palverlib

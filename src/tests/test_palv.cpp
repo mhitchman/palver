@@ -1,7 +1,19 @@
 #include <catch2/catch.hpp>
 #include <filesystem>
+#include <fstream>
 #include <iostream>
 #include <palv.h>
+
+namespace testUtils
+{
+    std::string readLineFromFile(const std::string& file)
+    {
+	std::ifstream inputStream{file};
+	std::string line;
+	std::getline(inputStream, line);
+	return line;
+    }
+} //namespace testUtils
 
 TEST_CASE ( "Filesystem tests ")
 {
@@ -54,8 +66,14 @@ TEST_CASE ( "Filesystem tests ")
     	auto testTemplateDir = palverlib::findTemplateDir(testConfDir, "app");
     	REQUIRE ( std::filesystem::exists(testTemplateDir) );
 
-    	palverlib::copyTemplateProjectToCWD(testTemplateDir, "testApp");
+	auto newProject = palverlib::copyTemplateProjectToCWD(testTemplateDir, "testApp");
+    	REQUIRE (newProject  == expectedTarget );
     	REQUIRE ( std::filesystem::exists(expectedTarget) );
+
+	REQUIRE ( palverlib::runTemplateActions(newProject, "argument") );
+	auto writtenFile = expectedTarget / "test.txt";
+	std::string expectedText = "test text argument";
+	REQUIRE ( testUtils::readLineFromFile(writtenFile.string()) == expectedText );
     }
 
     // TEARDOWN

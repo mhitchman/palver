@@ -1,10 +1,14 @@
-* DONE Setup CMake script to download clara.hpp
-* DONE Split palverlib into its own directory with separate include directory
-* DONE Setup make install
-* TODO Add a license
-* TODO Setup clang-tidy
+* TODO Include actions support
 * TODO Write a README
 - [ ] Introduction
 - [ ] Cloning section
 - [ ] build section
 - [ ] Usage
+* TODO Add a license
+* TODO Sort out --help and default actions
+* TODO Switch to using chdir and execve instead of system()
+- [ ] make sure script permissions are only user exec && read (no one can write)
+* DONE Setup CMake script to download clara.hpp
+* DONE Split palverlib into its own directory with separate include directory
+* DONE Setup make install
+* DONE Setup clang-tidy

@@ -21,7 +21,8 @@ int main(int argc, char* argv[])
 	auto homeDir = palverlib::findHomeDir();
 	auto configDir = palverlib::findConfigDir(homeDir);
 	auto templateDir = palverlib::findTemplateDir(configDir, templateName);
-	palverlib::copyTemplateProjectToCWD(templateDir, projectName);
+	auto newProjectDir = palverlib::copyTemplateProjectToCWD(templateDir, projectName);
+	palverlib::runTemplateActions(newProjectDir, projectName);
     }
     catch(palverlib::file_not_found_error& e)
     {
