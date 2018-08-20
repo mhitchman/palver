@@ -6,16 +6,6 @@
 namespace palverlib
 {
 
-    std::string parseCommandLineArg(int argc, char* argv[])
-    {
-	if (argc < 2)		// less than 2 means no argument was supplied
-	{
-	    return std::string();
-	}
-
-	return std::string(argv[1]);
-    }
-
     std::filesystem::path findHomeDir()
     {
 	auto homeDir = std::getenv("HOME");

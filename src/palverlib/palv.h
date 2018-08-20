@@ -14,7 +14,6 @@ namespace palverlib
 	    {}
     };
 
-    std::string parseCommandLineArg(int argc, char* argv[]);
     std::filesystem::path findHomeDir();
     std::filesystem::path findConfigDir(std::filesystem::path homeDir);
     std::filesystem::path findTemplateDir(std::filesystem::path configDir, const std::string& templateName);
