@@ -69,9 +69,9 @@ TEST_CASE ( "Command Line Parsing: project name " )
 	const int argc = 1;
 	char arg1[] = "executable";
 	char* argv[argc];
-	argv[0] = arg1;
+	argv[0] = static_cast<char*>(arg1);
 
-	REQUIRE( palverlib::parseCommandLineArg(argc, argv) == "" );
+	REQUIRE( palverlib::parseCommandLineArg(argc, static_cast<char**>(argv)).empty() );
     }
 
     SECTION( "Too many variables" )
@@ -81,11 +81,11 @@ TEST_CASE ( "Command Line Parsing: project name " )
 	char arg2[] = "projectName";
 	char arg3[] = "additional value";
 	char* argv[argc];
-	argv[0] = arg1;
-	argv[1] = arg2;
-	argv[2] = arg3;
+	argv[0] = static_cast<char*>(arg1);
+	argv[1] = static_cast<char*>(arg2);
+	argv[2] = static_cast<char*>(arg3);
 
-	REQUIRE( palverlib::parseCommandLineArg(argc, argv) == "projectName" );
+	REQUIRE( palverlib::parseCommandLineArg(argc, static_cast<char**>(argv)) == "projectName" );
     }
 
     SECTION( "Empty name value" )
@@ -94,10 +94,10 @@ TEST_CASE ( "Command Line Parsing: project name " )
 	char arg1[] = "executable";
 	char arg2[] = "";
 	char* argv[argc];
-	argv[0] = arg1;
-	argv[1] = arg2;
+	argv[0] = static_cast<char*>(arg1);
+	argv[1] = static_cast<char*>(arg2);
 
-	REQUIRE( palverlib::parseCommandLineArg(argc, argv) == "" );
+	REQUIRE( palverlib::parseCommandLineArg(argc, static_cast<char**>(argv)).empty() );
     }
 }
 

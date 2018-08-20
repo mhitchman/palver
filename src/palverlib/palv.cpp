@@ -1,7 +1,7 @@
 #include <filesystem>
 #include <iostream>
-#include <string>
 #include <palv.h>
+#include <string>
 
 namespace palverlib
 {
@@ -19,7 +19,7 @@ namespace palverlib
     std::filesystem::path findHomeDir()
     {
 	auto homeDir = std::getenv("HOME");
-	if (!homeDir)
+	if (homeDir == nullptr)
 	{
 	    throw std::runtime_error("HOME environment variable not set");
 	}
@@ -49,7 +49,7 @@ namespace palverlib
     }
 
 
-    std::filesystem::path findTemplateDir(std::filesystem::path configDir, std::string templateName)
+    std::filesystem::path findTemplateDir(std::filesystem::path configDir, const std::string& templateName)
     {
 	if (templateName.empty())
 	{
@@ -89,4 +89,4 @@ namespace palverlib
 	std::filesystem::copy(templateDir, destination,
 			      std::filesystem::copy_options::recursive);
     }
-}
+} // namespace palverlib
