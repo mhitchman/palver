@@ -70,10 +70,14 @@ TEST_CASE ( "Filesystem tests ")
     	REQUIRE (newProject  == expectedTarget );
     	REQUIRE ( std::filesystem::exists(expectedTarget) );
 
+	auto actionsScript = expectedTarget / "actions.palver";
+	REQUIRE ( std::filesystem::exists(actionsScript) );
 	REQUIRE ( palverlib::runTemplateActions(newProject, "argument") );
+
 	auto writtenFile = expectedTarget / "test.txt";
 	std::string expectedText = "test text argument";
 	REQUIRE ( testUtils::readLineFromFile(writtenFile.string()) == expectedText );
+	REQUIRE_FALSE ( std::filesystem::exists(actionsScript) );
     }
 
     // TEARDOWN

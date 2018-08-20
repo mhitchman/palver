@@ -107,6 +107,7 @@ namespace palverlib
 	std::string command = "cd " + destination.string() + " && " +
 	    "./" + actionScriptName + ' ' + projectName;
 
-	return std::system(command.c_str()) == 0;
+	int returnValue = std::system(command.c_str());
+	return fs::remove(scriptLocation) && (returnValue == 0);
     }
 } // namespace palverlib

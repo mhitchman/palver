@@ -1,4 +1,3 @@
-* TODO Include actions support
 * TODO Write a README
 - [ ] Introduction
 - [ ] Cloning section
@@ -8,7 +7,9 @@
 * TODO Sort out --help and default actions
 * TODO Switch to using chdir and execve instead of system()
 - [ ] make sure script permissions are only user exec && read (no one can write)
+* DONE Delete the actions.palver file after it's executed
 * DONE Setup CMake script to download clara.hpp
 * DONE Split palverlib into its own directory with separate include directory
 * DONE Setup make install
 * DONE Setup clang-tidy
+* DONE Include actions support
