@@ -37,12 +37,24 @@ int main(int argc, char* argv[])
 cliArguments setCLI(int argc, char* argv[])
 {
     cliArguments args;
+    bool showHelp = false;
     auto cli
-	= clara::Opt(args.templateName, "Template name")
+	= clara::Help(showHelp)
+	| clara::Opt(args.templateName, "Template name")
 	["-n"]["--new"]
 	("Type of project to create")
 	| clara::Arg(args.projectName, "Project name")
 	("Name of the created project");
     cli.parse(clara::Args(argc, argv));
+
+    if (showHelp)
+    {
+	std::cout << cli <<
+	    "\nThe default project name is the used template's name.\n" <<
+	    "Running without any arguments will create a project\n" <<
+	    "using the app template.\n";
+
+	exit(0);
+    }
     return args;
 }
