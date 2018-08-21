@@ -17,7 +17,9 @@ int main(int argc, char* argv[])
     auto [templateName, projectName] = setCLI(argc, argv);
 
     if (projectName.empty())
+    {
 	projectName = templateName;
+    }
 
     try
     {

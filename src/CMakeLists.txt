@@ -1,4 +1,8 @@
-set(CMAKE_CXX_CLANG_TIDY clang-tidy)
+# use clang-tidy if it's available
+find_program(CLANG_TIDY clang-tidy)
+if(CLANG_TIDY)
+    set(CMAKE_CXX_CLANG_TIDY clang-tidy)
+endif()
 
 # PALVERLIB
 add_subdirectory(palverlib)
