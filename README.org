@@ -10,7 +10,6 @@ the template.
 * Cloning
 Clone the repository with:
 1) =git clone https://github.com/mhitchman/palver.git --recursive=
-2) =git submodule update --init=
 
 * Building
 ** Requirements
@@ -25,7 +24,7 @@ header is downloaded by CMake.
    1) =mkdir build && cd build=
    2) =cmake .. -DENABLE_TESTS=OFF -DCMAKE_INSTALL_PREFIX=<install location> -DCMAKE_BUILD_TYPE=Release=
    3) =cmake --build .=
-   4) =cmake --build . --target=install=
+   4) =cmake --build . --target install=
 Installing will create a .palver folder in the home directory.
 The 'palv' binary will be copied to a 'bin' folder within the
 folder selected by =-DCMAKE_INSTALL_PREFIX=.
