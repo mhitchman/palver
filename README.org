@@ -1,0 +1,65 @@
+#+TITLE: Palver
+
+Palver creates projects using templates. It takes the template 
+and the new project name as command line arguments and creates 
+the project in the current working directory. At its simplest it
+just copies the template folder and renames it to the project name.
+However, it also supports the running of a shell script provided by
+the template.
+
+* Cloning
+Clone the repository with:
+1) =git clone https://github.com/mhitchman/palver.git --recursive=
+2) =git submodule update --init=
+
+* Building
+** Requirements
+- C++ compiler supporting C++17
+
+The project also uses [[https://github.com/catchorg/Clara][Clara]] to parse the command line arguments. The 
+header is downloaded by CMake. 
+
+** For release
+1) After [[*Cloning][cloning]] the repository run:
+   1) =mkdir build && cd build=
+   2) =cmake .. -DENABLE_TESTS=OFF -DCMAKE_INSTALL_PREFIX=<install location> -DCMAKE_BUILD_TYPE=Release=
+   3) =cmake --build .=
+   4) =cmake --build . --target=install=
+Installing will create a .palver folder in the home directory.
+The 'palv' binary will be copied to a 'bin' folder within the
+folder selected by =-DCMAKE_INSTALL_PREFIX=.
+
+** For development
+1) After [[*Cloning][cloning]] the repository run:
+   1) =mkdir build && cd build=
+   2) =cmake ..=
+   3) Then =cmake --build .= to build.
+
+* Usage
+=palv [<Project name>] options=
+
+To use it make sure the  =palv= binary is somewhere on the $PATH and 
+that the ~/.palver folder exists and has the templates in it
+(this gets created automatically by the install step above).
+
+The project name argument specifies the name of the new project.
+If a name isn't provided the template's name is used instead.
+
+The template to use can be specified using the --new or -n command 
+line switch. The template name corresponds to the folder name in the 
+~/.palver directory. Only alphanumeric characters are allowed.
+The app template is the default and will be used if no template is 
+specified. 
+ 
+** Creating templates
+Creating new templates is simple: just place a folder in the ~/.palver
+folder. The name of the folder will be its identifier.
+This folder will get copied into place when a project is created.
+
+A script named 'actions.palver' can be placed in the root of the
+template folder to complete additional actions (e.g. appending a line 
+to a project file) after the project is created.
+It should be an owner executable shell script starting with a #! line.
+This will be run after the new project gets created and the new 
+project name is passed as the first argument (so can be accessed with 
+=$1=).
