@@ -6,6 +6,18 @@
 
 namespace palverlib
 {
+    void validateTemplateName(const std::string& templateName)
+    {
+	// verifies given template name only uses alphanumeric characters
+
+	auto res = std::all_of(templateName.begin(),
+			       templateName.end(),
+			       [](char c){ return std::isalnum(c); });
+	if (!res)
+	{
+	    throw std::invalid_argument("Invalid template name provided (only alphanumeric characters allowed)");
+	}
+    }
 
     std::filesystem::path findHomeDir()
     {

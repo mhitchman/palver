@@ -18,6 +18,7 @@ int main(int argc, char* argv[])
 
     try
     {
+	palverlib::validateTemplateName(templateName);
 	auto homeDir = palverlib::findHomeDir();
 	auto configDir = palverlib::findConfigDir(homeDir);
 	auto templateDir = palverlib::findTemplateDir(configDir, templateName);
@@ -28,7 +29,7 @@ int main(int argc, char* argv[])
     {
 	std::cerr << e.what() << " doesn't exist\n";
     }
-    catch(std::runtime_error& e)
+    catch(std::exception& e)
     {
 	std::cerr << e.what() << std::endl;
     }

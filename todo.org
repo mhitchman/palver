@@ -4,10 +4,3 @@
 - [ ] build section
 - [ ] Usage
 * TODO Add a license
-* DONE Sort out --help and default actions
-* DONE Delete the actions.palver file after it's executed
-* DONE Setup CMake script to download clara.hpp
-* DONE Split palverlib into its own directory with separate include directory
-* DONE Setup make install
-* DONE Setup clang-tidy
-* DONE Include actions support

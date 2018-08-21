@@ -15,6 +15,16 @@ namespace testUtils
     }
 } //namespace testUtils
 
+TEST_CASE ( "Validate Arguments" )
+{
+    SECTION ( "Template name" )
+    {
+	REQUIRE_THROWS( palverlib::validateTemplateName(";invalid!") );
+	REQUIRE_NOTHROW( palverlib::validateTemplateName("valid") );
+	REQUIRE_NOTHROW( palverlib::validateTemplateName("") );
+    }
+}
+
 TEST_CASE ( "Filesystem tests ")
 {
     auto cwd = std::filesystem::current_path();

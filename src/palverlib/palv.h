@@ -1,5 +1,6 @@
 #pragma once
 
+#include <algorithm>
 #include <string>
 #include <stdexcept>
 #include <filesystem>
@@ -14,6 +15,7 @@ namespace palverlib
 	    {}
     };
 
+    void validateTemplateName(const std::string& templateName);
     std::filesystem::path findHomeDir();
     std::filesystem::path findConfigDir(std::filesystem::path homeDir);
     std::filesystem::path findTemplateDir(std::filesystem::path configDir, const std::string& templateName);
