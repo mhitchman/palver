@@ -1,8 +1,1 @@
-* TODO Write a README
-- [X] Introduction
-- [X] Cloning section
-- [X] build section
-- [X] Usage
-
-* TODO make sure a project name gets passed to actions.palver even when one isn't specified on the command line
-* DONE Add a license
+* TODO Replace actions.palver with simple DSL

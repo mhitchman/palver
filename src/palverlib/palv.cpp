@@ -76,18 +76,8 @@ namespace palverlib
     {
 	std::filesystem::path destination;
 
-	// If project name isn't provided just use the template name
-	if (projectName.empty())
-	{
-	    // append won't work if second argument is filesystem::path
-	    destination = std::filesystem::current_path() /
-		templateDir.stem().string();
-	}
-	else
-	{
-	    destination = std::filesystem::current_path() /
-		projectName;
-	}
+	destination = std::filesystem::current_path() /
+	    projectName;
 
 	std::filesystem::copy(templateDir, destination,
 			      std::filesystem::copy_options::recursive);
