@@ -1,0 +1,5 @@
+compile_commands.json
+.cquery_cached_index/
+.dir-locals.el
+build/
+*~
